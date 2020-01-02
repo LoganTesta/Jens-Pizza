@@ -1,0 +1,17 @@
+{
+    "name": "Jen_s_Pizza",
+    "version": "1.0.0",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "logan",
+    "contributors": [],
+    "dependencies": {
+        "nodemailer": "^6.4.2",
+        "querystring": "^0.2.0"
+    }
+}

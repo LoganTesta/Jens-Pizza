@@ -1,0 +1,57 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="pizza, tomato sauce, cheese, veggie, supreme." />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Jen's Pizza | Contact Us</title>
+        <link rel="stylesheet" href="assets/css/main-styles.css" /> 
+    </head>
+    <body>
+        <div class="body-wrapper">
+            <header>
+                <div class="main-title-container"><a href="/index"><h1>Jen's Pizza</h1></a></div>
+                <div class="subtitle-container"><h2>Contact Us</h2></div>
+            </header>
+            <script type="text/javascript" src="assets/javascript/nav-menu.js"></script>
+            <div class="content">
+                <div class="content-row">
+                    <div class="col-sma-6">
+                        <p>Thank you for writing us.  We look forward to hearing from you!</p>
+                        <div class="contact-form">
+                            <form id="contactForm" action="/contact-us" method="post">
+                                <div class="input-container">
+                                    <label for="userName">Name</label>
+                                    <input type="text" id="userName" name="userName" />
+                                </div>
+                                <div class="input-container">
+                                    <label for="userPhone">Phone</label>
+                                    <input type="text" id="userPhone" name="userPhone" />
+                                </div>
+                                <div class="input-container">
+                                    <label for="userEmail">Email</label>
+                                    <input type="email" id="userEmail" name="userEmail" />
+                                </div>
+                                <div class="input-container">
+                                    <label for="userSubject">Subject</label>
+                                    <input type="text" id="userSubject" name="userSubject" />
+                                </div>
+                                <div class="input-container">
+                                    <label for="userComments">Your Comments/Questions</label>
+                                    <textarea id="userComments" name="userComments" rows="5"></textarea>
+                                </div>
+                                <div class="input-container">
+                                    <input type="submit" id="submitButton" class="button" name="submitButton" />
+                                </div>
+                            </form>
+                        </div>  
+                    </div>
+                    <div class="col-sma-6">
+                        <div class="content__background contact-us-zero">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer"></footer>
+        </div>
+    </body>
+</html>
