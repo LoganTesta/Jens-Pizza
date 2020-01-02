@@ -9,8 +9,8 @@ http.createServer(function (request, response) {
     let directories = pathName.split('/');
     let fileType = pathName.split('.').pop();
 
-    console.log("request.url " + request.url + " request.method " + request.method);
-    console.log("pathName " + pathName + " directories " + directories + " fileType " + fileType);
+  //  console.log("request.url " + request.url + " request.method " + request.method);
+  //  console.log("pathName " + pathName + " directories " + directories + " fileType " + fileType);
 
 
     if (request.url === "/") {
@@ -37,16 +37,14 @@ http.createServer(function (request, response) {
             });
         }
         sendFileContent(response, "contact-us.html", "text/html");
-    } else if (request.url === "/assets/css/main-styles.css") {
-        sendFileContent(response, request.url.toString().substring(1), "text/css");
-    } else if (request.url === "/assets/css/print-styles.css") {
-        sendFileContent(response, request.url.toString().substring(1), "text/css");
-    } else if (request.url === "/assets/javascript/nav-menu.js") {
-        sendFileContent(response, request.url.toString().substring(1), "text/javascript");
-    } else if (request.url === "/assets/javascript/footer.js") {
-        sendFileContent(response, request.url.toString().substring(1), "text/javascript");
-    }else if (directories[2]) {
+    }  else if (directories[2]) {
         switch (fileType) {
+            case "css":
+                contentType = 'text/css';
+                break;
+            case "js":
+                contentType = 'text/javascript';
+                break;
             case "jpg":
                 contentType = 'image/jpg';
                 break;
