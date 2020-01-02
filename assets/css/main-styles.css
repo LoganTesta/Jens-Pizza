@@ -195,6 +195,7 @@ nav { padding: 15px; }
 
 
 .footer { padding: 50px 15px; font-size: 18px; background-color: var(--color-1); color: #ffffff; }
+.footer__copyright { width: 50%; margin-left: auto; margin-right: auto; text-align: center; font-size: inherit; }
 .footer__year { font-size: inherit; }
 
 /*General use classes*/
