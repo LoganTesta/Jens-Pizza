@@ -9,8 +9,8 @@ http.createServer(function (request, response) {
     let directories = pathName.split('/');
     let fileType = pathName.split('.').pop();
 
-  //  console.log("request.url " + request.url + " request.method " + request.method);
-  //  console.log("pathName " + pathName + " directories " + directories + " fileType " + fileType);
+    //  console.log("request.url " + request.url + " request.method " + request.method);
+    //  console.log("pathName " + pathName + " directories " + directories + " fileType " + fileType);
 
 
     if (request.url === "/") {
@@ -37,7 +37,7 @@ http.createServer(function (request, response) {
             });
         }
         sendFileContent(response, "contact-us.html", "text/html");
-    }  else if (directories[2]) {
+    } else if (directories[2]) {
         switch (fileType) {
             case "css":
                 contentType = 'text/css';
@@ -103,7 +103,12 @@ function sendFormEmail(body) {
         from: '' + userName + " at " + userEmail,
         to: '' + destinationEmail,
         subject: '' + userSubject,
-        text: 'From: ' + userName + " Phone: " + userPhone + ". Message: " + userComments
+        html: "<strong>From: </strong>" + userName + "<br />" +
+                "<strong>Email: </strong>" + userEmail + "<br />" +
+                "<strong>Phone: </strong>" + userPhone + "<br />" +
+                "<strong>Subject: </strong>" + userSubject + "<br />" +
+                "<br />" +
+                "<strong>Message: </strong>" + userComments
     };
 
     emailTransport.sendMail(message, function (err, info) {
