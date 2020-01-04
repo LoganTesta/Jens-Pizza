@@ -9,8 +9,8 @@ http.createServer(function (request, response) {
     let directories = pathName.split('/');
     let fileType = pathName.split('.').pop();
 
-    //  console.log("request.url " + request.url + " request.method " + request.method);
-    //  console.log("pathName " + pathName + " directories " + directories + " fileType " + fileType);
+    // console.log("request.url " + request.url + " request.method " + request.method);
+    // console.log("pathName " + pathName + " directories " + directories + " fileType " + fileType);
 
 
     if (request.url === "/") {
@@ -37,7 +37,7 @@ http.createServer(function (request, response) {
             });
         }
         sendFileContent(response, "contact-us.html", "text/html");
-    } else if (directories[2]) {
+    } else {
         switch (fileType) {
             case "css":
                 contentType = 'text/css';
@@ -51,11 +51,14 @@ http.createServer(function (request, response) {
             case "png":
                 contentType = 'image/png';
                 break;
+            case "ico":
+                contentType = 'image/png';
+                break;
+            default:
+                console.log("Request URL: " + request.url);
+                response.end();
         }
         sendFileContent(response, request.url.toString().substring(1), contentType);
-    } else {
-        console.log("Request URL: " + request.url);
-        response.end();
     }
 
 }).listen(3000);
