@@ -15,7 +15,7 @@ footer.innerHTML = '<div class="footer__copyright">' +
         '<input type="email" id="subscribeEmail" name="subscribeEmail" />' +
         '</div> ' +
         '<div class="input-container">' +
-        '<input type="submit" class="submit-button" id="subscribeSubmit" name="subscribeSubmit" />' +
+        '<button class="submit-button" id="subscribeSubmit" name="subscribeSubmit">Subscribe!</button>' +
         '</div> ' +
         '</form>' +
         '</div>' +

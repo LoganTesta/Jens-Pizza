@@ -101,11 +101,11 @@ function sendContactEmail(body) {
 
     let jsonData = queryString.parse(body);
 
-    let userName = jsonData.userName;
-    let userSubject = jsonData.userSubject;
-    let userEmail = jsonData.userEmail;
-    let userPhone = jsonData.userPhone;
-    let userComments = jsonData.userComments;
+    let userName = "" + jsonData.userName;
+    let userSubject = "" + jsonData.userSubject;
+    let userEmail = "" + jsonData.userEmail;
+    let userPhone = "" + jsonData.userPhone;
+    let userComments = "" + jsonData.userComments;
 
     let destinationEmail = "contact@jenspizza.com";
 
@@ -147,8 +147,8 @@ function sendSubscribeEmail(body) {
 
     let jsonData = queryString.parse(body);
 
-    let userName = jsonData.subscribeName;
-    let userEmail = jsonData.subscribeEmail;
+    let userName = "" + jsonData.subscribeName;
+    let userEmail = "" + jsonData.subscribeEmail;
 
     let destinationEmail = "contact@jenspizza.com";
     let emailSubject = "Subscribe!";
