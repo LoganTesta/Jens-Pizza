@@ -131,13 +131,44 @@ function sendContactEmail(body) {
                 "<strong>Message: </strong>" + userComments
     };
 
-    emailTransport.sendMail(message, function (err, info) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(info);
-        }
-    });
+    let validForm = true;
+   
+    let userNameValid = true;
+    if (userName === "") {
+        userNameValid = false;
+    }
+    if(userNameValid === false){
+        validForm = false; 
+    }
+    
+    
+    let userEmailValid = true;
+    if (userEmail === "") {
+        userEmailValid = false;
+    }
+    if(userEmailValid === false){
+        validForm = false; 
+    }
+    
+    
+    let userCommentsValid = true;
+    if (userComments === "") {
+        userCommentsValid = false;
+    }
+    if(userCommentsValid === false){
+        validForm = false; 
+    }
+    
+
+    if (validForm) {
+        emailTransport.sendMail(message, function (err, info) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(info);
+            }
+        });
+    }
 }
 
 
@@ -162,8 +193,7 @@ function sendSubscribeEmail(body) {
         }
     });
 
-    const message = {
-     
+    const message = {    
         from: '' + userName + " at " + userEmail,
         to: '' + destinationEmail,
         subject: emailSubject,
@@ -174,11 +204,34 @@ function sendSubscribeEmail(body) {
                 "<strong>Message: </strong> Please subscribe this visitor for emails about store events and specials."
     };
 
-    emailTransport.sendMail(message, function (err, info) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log(info);
-        }
-    });
+
+    let validForm = true;
+
+    let userNameValid = true;
+    if (userName === "") {
+        userNameValid = false;
+    }
+    if (userNameValid === false) {
+        validForm = false;
+    }
+
+
+    let userEmailValid = true;
+    if (userEmail === "") {
+        userEmailValid = false;
+    }
+    if (userEmailValid === false) {
+        validForm = false;
+    }
+
+
+    if (validForm) {
+        emailTransport.sendMail(message, function (err, info) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(info);
+            }
+        });
+    }
 }

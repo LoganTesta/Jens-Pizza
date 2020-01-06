@@ -7,16 +7,17 @@ footer.innerHTML = '<div class="footer__copyright">' +
         '<h3 class="footer__subheading">Subscribe</h3>' +
         '<form id="subscribeName" action="/subscribe" method="post">' +
         '<div class="input-container">' +
-        '<label for="subscribeName">Name</label>' +
+        '<label for="subscribeName">Name **</label>' +
         '<input type="text" id="subscribeName" name="subscribeName" />' +
         '</div> ' +
         '<div class="input-container">' +
-        '<label for="subscribeEmail">Email</label>' +
+        '<label for="subscribeEmail">Email **</label>' +
         '<input type="email" id="subscribeEmail" name="subscribeEmail" />' +
         '</div> ' +
         '<div class="input-container">' +
         '<button class="submit-button" id="subscribeSubmit" name="subscribeSubmit">Subscribe!</button>' +
         '</div> ' +
+        '<div class="validation-results" id="validationResultsSubscribe"></div>' +
         '</form>' +
         '</div>' +
         '</div>';
