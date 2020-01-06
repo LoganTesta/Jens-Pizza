@@ -9,7 +9,7 @@ http.createServer(function (request, response) {
     let directories = pathName.split('/');
     let fileType = pathName.split('.').pop();
 
-    // console.log("request.url " + request.url + " request.method " + request.method);
+     console.log("request.url " + request.url + " request.method " + request.method);
     // console.log("pathName " + pathName + " directories " + directories + " fileType " + fileType);
 
 
@@ -37,6 +37,22 @@ http.createServer(function (request, response) {
             });
         }
         sendFileContent(response, "contact-us.html", "text/html");
+    } else if (request.url === "/subscribe") {
+        if (request.method === "POST") {
+            let info = url.parse(request.url, true);
+            console.dir(info);
+
+            let body = "";
+            request.on("data", function (data) {
+                body += data;
+                console.log("partial body " + body);
+            });
+            request.on("end", function (data) {
+                console.log(" body " + body);
+                sendSubscribeEmail(body);
+            });
+        }
+        sendFileContent(response, "subscribe.html", "text/html");
     } else {
         switch (fileType) {
             case "css":
