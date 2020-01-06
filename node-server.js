@@ -3,6 +3,9 @@ let http = require('http');
 let fs = require("fs");
 let url = require("url");
 
+let user = '';
+let pass = '';
+
 http.createServer(function (request, response) {
 
     let pathName = url.parse(request.url).pathname;
@@ -33,7 +36,7 @@ http.createServer(function (request, response) {
             });
             request.on("end", function (data) {
                 console.log(" body " + body);
-                sendFormEmail(body);
+                sendContactEmail(body);
             });
         }
         sendFileContent(response, "contact-us.html", "text/html");
@@ -92,7 +95,7 @@ function sendFileContent(response, fileName, contentType) {
     });
 }
 
-function sendFormEmail(body) {
+function sendContactEmail(body) {
     let nodemailer = require("nodemailer");
     let queryString = require("queryString");
 
@@ -104,8 +107,6 @@ function sendFormEmail(body) {
     let userPhone = jsonData.userPhone;
     let userComments = jsonData.userComments;
 
-
-    let senderEmail = userEmail;
     let destinationEmail = "contact@jenspizza.com";
 
 
@@ -113,8 +114,8 @@ function sendFormEmail(body) {
         host: 'smtp.mailtrap.io',
         port: 2525,
         auth: {
-            user: '',
-            pass: ''
+            user: '' + user,
+            pass: '' + pass
         }
     });
 
@@ -128,6 +129,49 @@ function sendFormEmail(body) {
                 "<strong>Subject: </strong>" + userSubject + "<br />" +
                 "<br />" +
                 "<strong>Message: </strong>" + userComments
+    };
+
+    emailTransport.sendMail(message, function (err, info) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log(info);
+        }
+    });
+}
+
+
+function sendSubscribeEmail(body) {
+    let nodemailer = require("nodemailer");
+    let queryString = require("queryString");
+
+    let jsonData = queryString.parse(body);
+
+    let userName = jsonData.subscribeName;
+    let userEmail = jsonData.subscribeEmail;
+
+    let destinationEmail = "contact@jenspizza.com";
+    let emailSubject = "Subscribe!";
+
+    let emailTransport = nodemailer.createTransport({
+        host: 'smtp.mailtrap.io',
+        port: 2525,
+        auth: {
+            user: '' + user,
+            pass: '' + pass
+        }
+    });
+
+    const message = {
+     
+        from: '' + userName + " at " + userEmail,
+        to: '' + destinationEmail,
+        subject: emailSubject,
+        html: "<strong>From: </strong>" + userName + "<br />" +
+                "<strong>Email: </strong>" + userEmail + "<br />" +
+                "<strong>Subject: </strong>" + emailSubject + "<br />" +
+                "<br />" +
+                "<strong>Message: </strong> Please subscribe this visitor for emails about store events and specials."
     };
 
     emailTransport.sendMail(message, function (err, info) {
