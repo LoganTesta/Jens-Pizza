@@ -207,6 +207,7 @@ header { padding: 15px; }
 .footer__subheading { color: #ffffff; }
 
 /*General use classes*/
+.no-display { display: none; }
 .input-container { padding: 15px 0; }
 .submit-button { padding: 12px; border-radius: 5px; background-color: var(--color-2); color: #ffffff; font-weight: bold; cursor: pointer; }
 

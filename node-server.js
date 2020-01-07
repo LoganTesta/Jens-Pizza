@@ -6,6 +6,8 @@ let url = require("url");
 let user = '';
 let pass = '';
 
+let validationMessage = "<span class='no-display validation-res'></span>";
+
 http.createServer(function (request, response) {
 
     let pathName = url.parse(request.url).pathname;
@@ -28,11 +30,11 @@ http.createServer(function (request, response) {
         if (request.method === "POST") {
             let info = url.parse(request.url, true);
             console.dir(info);
-
+           // console.log("console.dir(info) " + console.dir(info))
             let body = "";
             request.on("data", function (data) {
                 body += data;
-                console.log("partial body " + body);
+               // console.log("partial body " + body);
             });
             request.on("end", function (data) {
                 console.log(" body " + body);
@@ -83,12 +85,17 @@ http.createServer(function (request, response) {
 }).listen(3000);
 
 function sendFileContent(response, fileName, contentType) {
+
     fs.readFile(fileName, function (err, data) {
         if (err) {
             response.writeHead(404);
             response.write("File not found.");
         } else {
-            response.writeHead(200, {'Content-Type': contentType});
+            response.writeHead(200, {'Content-Type': contentType});           
+
+            if (fileName === "contact-us.html") {
+                 response.write(validationMessage);
+            }
             response.write(data);
         }
         response.end();
@@ -97,19 +104,19 @@ function sendFileContent(response, fileName, contentType) {
 
 function sendContactEmail(body) {
     let nodemailer = require("nodemailer");
-    let queryString = require("queryString");
 
-    let jsonData = queryString.parse(body);
-
-    let userName = "" + jsonData.userName;
-    let userSubject = "" + jsonData.userSubject;
-    let userEmail = "" + jsonData.userEmail;
-    let userPhone = "" + jsonData.userPhone;
-    let userComments = "" + jsonData.userComments;
+    let bodyText = "" + body;
+    let userName = bodyText.substring(8, bodyText.search("userEmail"));
+    let userEmail = bodyText.substring(bodyText.search("userEmail") + 9, bodyText.search("userPhone"));
+    let userPhone = bodyText.substring(bodyText.search("userPhone") + 9, bodyText.search("userSubject"));
+    let userSubject = bodyText.substring(bodyText.search("userSubject") + 11, bodyText.search("userComments"));
+    let userComments =  bodyText.substring(bodyText.search("userComments") + 12, bodyText.length);
 
     let destinationEmail = "contact@jenspizza.com";
 
-
+    console.log("bodyText " + bodyText);
+   
+   
     let emailTransport = nodemailer.createTransport({
         host: 'smtp.mailtrap.io',
         port: 2525,
@@ -134,7 +141,7 @@ function sendContactEmail(body) {
     let validForm = true;
    
     let userNameValid = true;
-    if (userName === "") {
+    if (userName.trim().length < 1) {
         userNameValid = false;
     }
     if(userNameValid === false){
@@ -143,7 +150,7 @@ function sendContactEmail(body) {
     
     
     let userEmailValid = true;
-    if (userEmail === "") {
+    if (userEmail.trim().length < 5) {
         userEmailValid = false;
     }
     if(userEmailValid === false){
@@ -152,22 +159,25 @@ function sendContactEmail(body) {
     
     
     let userCommentsValid = true;
-    if (userComments === "") {
+    if (userComments.trim().length < 1) {
         userCommentsValid = false;
     }
     if(userCommentsValid === false){
         validForm = false; 
     }
     
-
+    console.log("Sending userName: " + userName + " userEmail: " + userEmail + " userPhone: " + userPhone + " userSubject: " + userSubject + " userComments: " + userComments + " validForm "+ validForm);
     if (validForm) {
         emailTransport.sendMail(message, function (err, info) {
             if (err) {
                 console.log(err);
             } else {
                 console.log(info);
+                validationMessage = "<span class='no-display validation-res'>Success!  Form transmitted.</span>";
             }
         });
+    } else {
+        validationMessage = "<span class='no-display validation-res'>Please fill all required (**) input fields in the proper format.</span>";
     }
 }
 
@@ -233,5 +243,7 @@ function sendSubscribeEmail(body) {
                 console.log(info);
             }
         });
+    } else {
+        
     }
 }
