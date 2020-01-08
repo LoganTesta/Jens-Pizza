@@ -145,7 +145,7 @@ function sendContactEmail(body) {
     if (userName.trim().length < 1) {
         userNameValid = false;
     }
-    if(userNameValid === false){
+    if (userNameValid === false){
         validForm = false; 
     }
     
@@ -154,7 +154,7 @@ function sendContactEmail(body) {
     if (userEmail.trim().length < 5) {
         userEmailValid = false;
     }
-    if(userEmailValid === false){
+    if (userEmailValid === false){
         validForm = false; 
     }
     
@@ -163,7 +163,7 @@ function sendContactEmail(body) {
     if (userComments.trim().length < 1) {
         userCommentsValid = false;
     }
-    if(userCommentsValid === false){
+    if (userCommentsValid === false){
         validForm = false; 
     }
     
