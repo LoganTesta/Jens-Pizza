@@ -74,7 +74,10 @@ http.createServer(function (request, response) {
                 contentType = 'image/png';
                 break;
             case "ico":
-                contentType = 'image/png';
+                contentType = 'image/x-icon';
+                break;
+            case "x-icon":
+                contentType = 'image/x-icon';
                 break;
             default:
                 console.log("Request URL: " + request.url);
