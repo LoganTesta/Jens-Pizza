@@ -14,7 +14,7 @@ http.createServer(function (request, response) {
     let directories = pathName.split('/');
     let fileType = pathName.split('.').pop();
 
-     console.log("request.url " + request.url + " request.method " + request.method);
+    console.log("request.url " + request.url + " request.method " + request.method);
     // console.log("pathName " + pathName + " directories " + directories + " fileType " + fileType);
 
 
@@ -29,36 +29,35 @@ http.createServer(function (request, response) {
     } else if (request.url === "/contact-us") {
         if (request.method === "POST") {
             let info = url.parse(request.url, true);
-           // console.dir(info);
+            // console.dir(info);
             let body = "";
             request.on("data", function (data) {
                 body += data;
-               // console.log("partial body " + body);
+                // console.log("partial body " + body);
             });
             request.on("end", function (data) {
                 console.log(" body " + body);
-                sendContactEmail(body);
+                sendContactEmail(body, response);
             });
+        } else {
+            sendFileContent(response, "contact-us.html", "text/html");
         }
-        sendFileContent(response, "contact-us.html", "text/html");
     } else if (request.url === "/subscribe") {
         if (request.method === "POST") {
             let info = url.parse(request.url, true);
-           // console.dir(info);
+            // console.dir(info);
             let body = "";
             request.on("data", function (data) {
                 body += data;
-               // console.log("partial body " + body);
+                // console.log("partial body " + body);
             });
             request.on("end", function (data) {
                 console.log(" body " + body);
-                sendSubscribeEmail(body);
-                sendFileContent(response, "subscribe.html", "text/html");
-            });  
+                sendSubscribeEmail(body, response);
+            });
         } else {
-             sendFileContent(response, "subscribe.html", "text/html");
+            sendFileContent(response, "subscribe.html", "text/html");
         }
-       
     } else {
         switch (fileType) {
             case "css":
@@ -95,17 +94,17 @@ function sendFileContent(response, fileName, contentType) {
             response.writeHead(404);
             response.write("File not found.");
         } else {
-            response.writeHead(200, {'Content-Type': contentType});           
-            response.write(data);          
+            response.writeHead(200, {'Content-Type': contentType});
+            response.write(data);
             if (fileName === "contact-us.html" || fileName === "subscribe.html") {
-                 response.write(validationMessage);
+                response.write(validationMessage);
             }
         }
         response.end();
     });
 }
 
-function sendContactEmail(body) {
+function sendContactEmail(body, response) {
     let nodemailer = require("nodemailer");
 
     let bodyText = "" + body;
@@ -113,13 +112,13 @@ function sendContactEmail(body) {
     let userEmail = bodyText.substring(bodyText.search("userEmail") + 9, bodyText.search("userPhone"));
     let userPhone = bodyText.substring(bodyText.search("userPhone") + 9, bodyText.search("userSubject"));
     let userSubject = bodyText.substring(bodyText.search("userSubject") + 11, bodyText.search("userComments"));
-    let userComments =  bodyText.substring(bodyText.search("userComments") + 12, bodyText.length);
+    let userComments = bodyText.substring(bodyText.search("userComments") + 12, bodyText.length);
 
     let destinationEmail = "contact@jenspizza.com";
 
     console.log("bodyText " + bodyText);
-   
-   
+
+
     let emailTransport = nodemailer.createTransport({
         host: 'smtp.mailtrap.io',
         port: 2525,
@@ -142,53 +141,58 @@ function sendContactEmail(body) {
     };
 
     let validForm = true;
-   
+
     let userNameValid = true;
     if (userName.trim().length < 1) {
         userNameValid = false;
     }
-    if (userNameValid === false){
-        validForm = false; 
+    if (userNameValid === false) {
+        validForm = false;
     }
-    
-    
+
+
     let userEmailValid = true;
     if (userEmail.trim().length < 5) {
         userEmailValid = false;
     }
-    if (userEmailValid === false){
-        validForm = false; 
+    if (userEmailValid === false) {
+        validForm = false;
     }
-    
-    
+
+
     let userCommentsValid = true;
     if (userComments.trim().length < 1) {
         userCommentsValid = false;
     }
-    if (userCommentsValid === false){
-        validForm = false; 
+    if (userCommentsValid === false) {
+        validForm = false;
     }
-    
-    console.log("Sending userName: " + userName + " userEmail: " + userEmail + " userPhone: " + userPhone + " userSubject: " + userSubject + " userComments: " + userComments + " validForm "+ validForm);
+
+    console.log("Sending userName: " + userName + " userEmail: " + userEmail + " userPhone: " + userPhone + " userSubject: " + userSubject + " userComments: " + userComments + " validForm " + validForm);
     if (validForm) {
         emailTransport.sendMail(message, function (err, info) {
             if (err) {
                 console.log(err);
                 validationMessage = "<span class='no-display validation-response'>Form did not submit.  Please try again</span>";
+                sendFileContent(response, "contact-us.html", "text/html");
+                console.log("0 validationMessage " + validationMessage);
             } else {
                 console.log(info);
                 validationMessage = "<span class='no-display validation-response'>Success!  Form transmitted.</span>";
+                sendFileContent(response, "contact-us.html", "text/html");
+                console.log("1 validationMessage " + validationMessage);
             }
         });
     } else {
         validationMessage = "<span class='no-display validation-response'>Please fill all required (**) input fields in the proper format.</span>";
+        sendFileContent(response, "contact-us.html", "text/html");
+        console.log("2 validationMessage " + validationMessage);
     }
-    console.log("validationMessage " + validationMessage);
 }
 
 
-function sendSubscribeEmail(body) {
-    
+function sendSubscribeEmail(body, response) {
+
     let nodemailer = require("nodemailer");
     let queryString = require("queryString");
 
@@ -208,7 +212,7 @@ function sendSubscribeEmail(body) {
         }
     });
 
-    const message = {    
+    const message = {
         from: '' + userName + " at " + userEmail,
         to: '' + destinationEmail,
         subject: emailSubject,
@@ -240,20 +244,22 @@ function sendSubscribeEmail(body) {
         validForm = false;
     }
 
-    console.log("Sending userName: " + userName + " userEmail: " + userEmail + "validForm "+ validForm);
+    console.log("Sending userName: " + userName + " userEmail: " + userEmail + "validForm " + validForm);
 
     if (validForm) {
         emailTransport.sendMail(message, function (err, info) {
             if (err) {
                 console.log(err);
                 validationMessage = "<span class='no-display validation-response'>Form did not submit.  Please try again</span>";
+                sendFileContent(response, "subscribe.html", "text/html");
             } else {
                 console.log(info);
                 validationMessage = "<span class='no-display validation-response'>Success!  You have been subscribed.  Thank you for subscribing with us!</span>";
+                sendFileContent(response, "subscribe.html", "text/html");
             }
         });
     } else {
         validationMessage = "<span class='no-display validation-response'>Please fill all required (**) input fields in the proper format.</span>";
+        sendFileContent(response, "subscribe.html", "text/html");
     }
-    console.log("validationMessage " + validationMessage);
 }
