@@ -72,9 +72,9 @@
                         var parser = new DOMParser();
                         var ajaxDocument = parser.parseFromString(this.responseText, "text/html");
                         
-                        var validationRes = ajaxDocument.getElementsByClassName("validation-res")[0];
+                        var validationResponse = ajaxDocument.getElementsByClassName("validation-response")[0];
 
-                        document.getElementsByClassName("validation-results-contact-us")[0].innerHTML = "" + validationRes.innerHTML;
+                        document.getElementsByClassName("validation-results-contact-us")[0].innerHTML = "" + validationResponse.innerHTML;
                     }
                 };
                 

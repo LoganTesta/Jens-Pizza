@@ -6,7 +6,7 @@ let url = require("url");
 let user = '';
 let pass = '';
 
-let validationMessage = "<span class='no-display validation-res'></span>";
+let validationMessage = "<span class='no-display validation-response'></span>";
 
 http.createServer(function (request, response) {
 
@@ -29,8 +29,7 @@ http.createServer(function (request, response) {
     } else if (request.url === "/contact-us") {
         if (request.method === "POST") {
             let info = url.parse(request.url, true);
-            console.dir(info);
-           // console.log("console.dir(info) " + console.dir(info))
+           // console.dir(info);
             let body = "";
             request.on("data", function (data) {
                 body += data;
@@ -45,19 +44,21 @@ http.createServer(function (request, response) {
     } else if (request.url === "/subscribe") {
         if (request.method === "POST") {
             let info = url.parse(request.url, true);
-            console.dir(info);
-
+           // console.dir(info);
             let body = "";
             request.on("data", function (data) {
                 body += data;
-                console.log("partial body " + body);
+               // console.log("partial body " + body);
             });
             request.on("end", function (data) {
                 console.log(" body " + body);
                 sendSubscribeEmail(body);
-            });
+                sendFileContent(response, "subscribe.html", "text/html");
+            });  
+        } else {
+             sendFileContent(response, "subscribe.html", "text/html");
         }
-        sendFileContent(response, "subscribe.html", "text/html");
+       
     } else {
         switch (fileType) {
             case "css":
@@ -93,7 +94,7 @@ function sendFileContent(response, fileName, contentType) {
         } else {
             response.writeHead(200, {'Content-Type': contentType});           
 
-            if (fileName === "contact-us.html") {
+            if (fileName === "contact-us.html" || fileName === "subscribe.html") {
                  response.write(validationMessage);
             }
             response.write(data);
@@ -171,25 +172,27 @@ function sendContactEmail(body) {
         emailTransport.sendMail(message, function (err, info) {
             if (err) {
                 console.log(err);
+                validationMessage = "<span class='no-display validation-response'>Form did not submit.  Please try again</span>";
             } else {
                 console.log(info);
-                validationMessage = "<span class='no-display validation-res'>Success!  Form transmitted.</span>";
+                validationMessage = "<span class='no-display validation-response'>Success!  Form transmitted.</span>";
             }
         });
     } else {
-        validationMessage = "<span class='no-display validation-res'>Please fill all required (**) input fields in the proper format.</span>";
+        validationMessage = "<span class='no-display validation-response'>Please fill all required (**) input fields in the proper format.</span>";
     }
+    console.log("validationMessage " + validationMessage);
 }
 
 
 function sendSubscribeEmail(body) {
+    
     let nodemailer = require("nodemailer");
     let queryString = require("queryString");
 
-    let jsonData = queryString.parse(body);
-
-    let userName = "" + jsonData.subscribeName;
-    let userEmail = "" + jsonData.subscribeEmail;
+    let bodyText = "" + body;
+    let userName = bodyText.substring(13, bodyText.search("subscribeEmail"));
+    let userEmail = bodyText.substring(bodyText.search("subscribeEmail") + 14, bodyText.length);
 
     let destinationEmail = "contact@jenspizza.com";
     let emailSubject = "Subscribe!";
@@ -217,8 +220,9 @@ function sendSubscribeEmail(body) {
 
     let validForm = true;
 
+
     let userNameValid = true;
-    if (userName === "") {
+    if (userName.trim() === "" || userName.trim().length < 1) {
         userNameValid = false;
     }
     if (userNameValid === false) {
@@ -227,23 +231,27 @@ function sendSubscribeEmail(body) {
 
 
     let userEmailValid = true;
-    if (userEmail === "") {
+    if (userEmail.trim() === "" || userEmail.trim().length < 5) {
         userEmailValid = false;
     }
     if (userEmailValid === false) {
         validForm = false;
     }
 
+    console.log("Sending userName: " + userName + " userEmail: " + userEmail + "validForm "+ validForm);
 
     if (validForm) {
         emailTransport.sendMail(message, function (err, info) {
             if (err) {
                 console.log(err);
+                validationMessage = "<span class='no-display validation-response'>Form did not submit.  Please try again</span>";
             } else {
                 console.log(info);
+                validationMessage = "<span class='no-display validation-response'>Success!  You have been subscribed.  Thank you for subscribing with us!</span>";
             }
         });
     } else {
-        
+        validationMessage = "<span class='no-display validation-response'>Please fill all required (**) input fields in the proper format.</span>";
     }
+    console.log("validationMessage " + validationMessage);
 }

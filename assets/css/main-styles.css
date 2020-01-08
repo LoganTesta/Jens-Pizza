@@ -204,7 +204,7 @@ header { padding: 15px; }
 .footer__copyright { width: 50%; margin-left: auto; margin-right: auto; text-align: center; font-size: inherit; }
 .footer__year { font-size: inherit; }
 .footer__subscribe-container { padding-top: 40px; }
-.footer__subheading { color: #ffffff; }
+.footer__subheading { font-weight: bold; color: #ffffff; }
 
 /*General use classes*/
 .no-display { display: none; }
