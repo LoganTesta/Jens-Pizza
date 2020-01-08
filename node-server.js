@@ -96,11 +96,10 @@ function sendFileContent(response, fileName, contentType) {
             response.write("File not found.");
         } else {
             response.writeHead(200, {'Content-Type': contentType});           
-
+            response.write(data);          
             if (fileName === "contact-us.html" || fileName === "subscribe.html") {
                  response.write(validationMessage);
             }
-            response.write(data);
         }
         response.end();
     });

@@ -24,34 +24,32 @@
                 <div class="content-row">
                     <div class="col-sma-6">
                         <p>Thank you for writing us.  We look forward to hearing from you!</p>
-                        <div class="contact-form">
-                            <form id="contactForm" action="/contact-us" method="post">
-                                <div class="input-container">
-                                    <label for="userName">Name **</label>
-                                    <input type="text" id="userName" name="userName" />
-                                </div>
-                                <div class="input-container">
-                                    <label for="userEmail">Email **</label>
-                                    <input type="email" id="userEmail" name="userEmail" />
-                                </div>
-                                <div class="input-container">
-                                    <label for="userPhone">Phone</label>
-                                    <input type="text" id="userPhone" name="userPhone" />
-                                </div>
-                                <div class="input-container">
-                                    <label for="userSubject">Subject</label>
-                                    <input type="text" id="userSubject" name="userSubject" />
-                                </div>
-                                <div class="input-container">
-                                    <label for="userComments">Your Comments/Questions **</label>
-                                    <textarea id="userComments" name="userComments" rows="5"></textarea>
-                                </div>
-                                <div class="input-container">
-                                    <button class="submit-button" id="submitContactUs" name="submitContactUs" >Contact Us</button>
-                                </div>
-                                <div class="validation-results validation-results-contact-us" id="validationResultsContactUs"></div>
-                            </form>
-                        </div>  
+                        <form id="contactForm" action="/contact-us" method="post">
+                            <div class="input-container">
+                                <label for="userName">Name **</label>
+                                <input type="text" id="userName" name="userName" />
+                            </div>
+                            <div class="input-container">
+                                <label for="userEmail">Email **</label>
+                                <input type="email" id="userEmail" name="userEmail" />
+                            </div>
+                            <div class="input-container">
+                                <label for="userPhone">Phone</label>
+                                <input type="text" id="userPhone" name="userPhone" />
+                            </div>
+                            <div class="input-container">
+                                <label for="userSubject">Subject</label>
+                                <input type="text" id="userSubject" name="userSubject" />
+                            </div>
+                            <div class="input-container">
+                                <label for="userComments">Your Comments/Questions **</label>
+                                <textarea id="userComments" name="userComments" rows="5"></textarea>
+                            </div>
+                            <div class="input-container">
+                                <button class="submit-button" id="submitContactUs" name="submitContactUs" >Contact Us</button>
+                            </div>
+                            <div class="validation-results validation-results-contact-us" id="validationResultsContactUs"></div>
+                        </form>
                     </div>
                     <div class="col-sma-6">
                         <div class="content__background contact-us-zero">
@@ -61,36 +59,38 @@
             </div>
             <script type="text/javascript" src="assets/javascript/footer.js"></script>
             <script type="text/javascript">
-            
-            //Use AJAX to update the validation results without reloading the page.
-            document.getElementById("contactForm").addEventListener("submit", function(event) { updateValidationResults(event); }, false);
-                    
-            function updateValidationResults(event){                  
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {  
-                    if (this.readyState === 4 && this.status === 200) {  
-                        var parser = new DOMParser();
-                        var ajaxDocument = parser.parseFromString(this.responseText, "text/html");
-                        
-                        var validationResponse = ajaxDocument.getElementsByClassName("validation-response")[0];
 
-                        document.getElementsByClassName("validation-results-contact-us")[0].innerHTML = "" + validationResponse.innerHTML;
-                    }
-                };
-                
-                let userName = document.getElementById("userName").value;
-                let userEmail = document.getElementById("userEmail").value
-                let userPhone = document.getElementById("userPhone").value;
-                let userSubject = document.getElementById("userSubject").value;
-                let userComments = document.getElementById("userComments").value;
-                let data = "userName " + userName + " userEmail " + userEmail + " userPhone " + userPhone + " userSubject " + userSubject + " userComments " + userComments;
-                
-                xhttp.open("POST", "/contact-us", true);
-          
-                xhttp.send(data); 
-                event.preventDefault();
-            }
-        </script>
+                //Use AJAX to update the validation results without reloading the page.
+                document.getElementById("contactForm").addEventListener("submit", function (event) {
+                    updateValidationResults(event);
+                }, false);
+
+                function updateValidationResults(event) {
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function () {
+                        if (this.readyState === 4 && this.status === 200) {
+                            var parser = new DOMParser();
+                            var ajaxDocument = parser.parseFromString(this.responseText, "text/html");
+
+                            var validationResponse = ajaxDocument.getElementsByClassName("validation-response")[0];
+
+                            document.getElementsByClassName("validation-results-contact-us")[0].innerHTML = "" + validationResponse.innerHTML;
+                        }
+                    };
+
+                    let userName = document.getElementById("userName").value;
+                    let userEmail = document.getElementById("userEmail").value
+                    let userPhone = document.getElementById("userPhone").value;
+                    let userSubject = document.getElementById("userSubject").value;
+                    let userComments = document.getElementById("userComments").value;
+                    let data = "userName " + userName + " userEmail " + userEmail + " userPhone " + userPhone + " userSubject " + userSubject + " userComments " + userComments;
+
+                    xhttp.open("POST", "/contact-us", true);
+
+                    xhttp.send(data);
+                    event.preventDefault();
+                }
+            </script>
         </div>
     </body>
 </html>
