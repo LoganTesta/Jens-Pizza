@@ -25,7 +25,7 @@
                     <div class="col-sma-6">
                         <h3 class="footer__subheading">Subscribe</h3>
                         <p>Enjoy getting news about when to come in for our latest pizza and party deals.</p>
-                        <form id="subscribeForm" action="/subscribe" method="post">
+                        <form id="subscribeForm" action="/subscribe" onsubmit="return validateSubscribeForm();" method="post">
                             <div class="input-container">
                                 <label for="subscribeName">Name **</label>
                                 <input type="text" id="subscribeName" name="subscribeName" />
@@ -37,6 +37,7 @@
                             <div class="input-container">
                                 <button class="submit-button" id="submitSubscribe" name="submitSubscribe">Subscribe!</button>
                             </div>
+                            <div class="javascript-validation-results-contact-us"></div>
                              <div class="validation-results validation-results-subscribe" id="validationResultsSubscribe"></div>
                         </form>
                     </div>
@@ -47,6 +48,7 @@
                 </div>
             </div>
             <script type="text/javascript" src="assets/javascript/footer.js"></script>
+            <script type="text/javascript" src="assets/javascript/subscribe-form-validation.js"></script>
             <script type="text/javascript">
             
             //Use AJAX to update the validation results without reloading the page.
