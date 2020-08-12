@@ -74,6 +74,7 @@ columns display at their designated widths at all device sizes, small (sma) abov
 }
 
 @media only screen and (min-width: 1200px){
+    .content { padding: 20px 0 20px 0; }
     .content-row { padding: 25px 0 25px 0; }
     .content-row:first-of-type { padding-top: 0; }
     .content-row:last-of-type { padding-bottom: 0; }
