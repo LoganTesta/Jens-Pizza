@@ -17,10 +17,12 @@ html { box-sizing: border-box; }
 /***########## Grid Column layout available.  Desktop and mobile settings.  Automatically make columns full width below a certain width. Very-small (vsm) 
 columns display at their designated widths at all device sizes, small (sma) above the first breakpoint, large (lar) above the next breakpoint. ***/
 .content { width: 100%; padding: 20px 10px 20px 10px; }
-.content-row { width: 100%; padding: 0; }
+.content-row { width: 100%; padding: 20px 0 20px 0; }
 .content-row:after { content: ""; display: block; clear: both; }
 .content-row.no-content-row-padding { padding: 0; }
-
+.content-row:first-of-type { padding-top: 0; }
+.content-row:last-of-type { padding-bottom: 0; }
+ 
 .col-sma-1, .col-sma-2, .col-sma-3, .col-sma-4, .col-sma-5, .col-sma-6, .col-sma-7, .col-sma-8, .col-sma-9, .col-sma-10, .col-sma-11, .col-sma-12,
 .col-lar-1, .col-lar-2, .col-lar-3, .col-lar-4, .col-lar-5, .col-lar-6, .col-lar-7, .col-lar-8, .col-lar-9, .col-lar-10, .col-lar-11, .col-lar-12 {
     float: none;
@@ -49,11 +51,7 @@ columns display at their designated widths at all device sizes, small (sma) abov
 .col-vsm-12 { width: 100%; }  
 
 /* Switch to 12 columns at 700px for small columns and 1200px for large columns. */
-@media only screen and (min-width: 700px){
-    .content-row { padding: 10px 0 10px 0; }
-    .content-row:first-of-type { padding-top: 0; }
-    .content-row:last-of-type { padding-bottom: 0; }
-
+@media only screen and (min-width: 700px){    
     .col-sma-1, .col-sma-2, .col-sma-3, .col-sma-4, .col-sma-5, .col-sma-6, .col-sma-7, .col-sma-8, .col-sma-9, .col-sma-10, .col-sma-11, .col-sma-12 {
         float: left;
         padding-left: 15px;
@@ -78,7 +76,7 @@ columns display at their designated widths at all device sizes, small (sma) abov
     .content-row { padding: 25px 0 25px 0; }
     .content-row:first-of-type { padding-top: 0; }
     .content-row:last-of-type { padding-bottom: 0; }
-
+       
     .col-lar-1, .col-lar-2, .col-lar-3, .col-lar-4, .col-lar-5, .col-lar-6, .col-lar-7, .col-lar-8, .col-lar-9, .col-lar-10, .col-lar-11, .col-lar-12 {
         float: left;
         padding-left: 15px;
