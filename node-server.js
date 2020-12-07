@@ -1,4 +1,6 @@
 
+/* To run locally: in command line, navigate to the project directory, and type: node node-server.js.  In the browser, type: localhost:3000. */
+
 let http = require('http');
 let fs = require("fs");
 let url = require("url");
