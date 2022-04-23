@@ -11,7 +11,8 @@ html, body, div, span, p, img, a, br, ul, li, ol, header, nav, footer, table, bu
 }
 
 /*For ease of development and maintainability, combine an element's width, padding, margin, and border into a final value, and enable this on all elements. */
-html { box-sizing: border-box; }
+/*Also reduce the chance of font-resizing on mobile devices.*/
+html { box-sizing: border-box; text-size-adjust: 100%; -webkit-text-size-adjust: 100%; }
 *, *:before, *:after { box-sizing: inherit; }
 
 /***########## Grid Column layout available.  Desktop and mobile settings.  Automatically make columns full width below a certain width. Very-small (vsm) 
