@@ -9,3 +9,5 @@
 
 
 /***############### Website Specific Styles. ***/
+
+.content__background { break-inside: avoid; page-break-inside: avoid; /*Older version*/ }
