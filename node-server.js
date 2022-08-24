@@ -61,6 +61,7 @@ http.createServer(function (request, response) {
             sendFileContent(response, "subscribe.html", "text/html");
         }
     } else {
+        var error404 = false;
         switch (fileType) {
             case "css":
                 contentType = 'text/css';
@@ -82,9 +83,14 @@ http.createServer(function (request, response) {
                 break;
             default:
                 console.log("Request URL: " + request.url);
-                response.end();
+                error404 = true;
+              //  response.end();
         }
-        sendFileContent(response, request.url.toString().substring(1), contentType);
+        if(error404){
+            sendFileContent(response, "404.html", "text/html");
+        } else {
+            sendFileContent(response, request.url.toString().substring(1), contentType);
+        }
     }
 
 }).listen(3000);

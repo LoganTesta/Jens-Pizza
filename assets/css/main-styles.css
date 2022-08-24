@@ -198,7 +198,7 @@ header { padding: 15px; }
 
 .nav { padding: 15px; }
 .nav ul li { display: block; padding-top: 25px; text-align: center; }
-.nav ul li a { color: var(--color-2); font-weight: bold; transition: 0.3s;  }
+.nav ul li a { color: var(--color-2); font-weight: bold; transition: 0.3s; }
 .nav ul li a:hover { color: var(--color-1); transition: 0.3s; }
 
 
@@ -228,6 +228,9 @@ header { padding: 15px; }
 
 /*Contact Us page*/
 .content__background.contact-us-zero { background: url('../images/supreme-pizza.png') 50% 50%/cover no-repeat; }
+
+/*404 page*/
+.content__background.four04-zero { background: url('../images/outdoor-pizza-restaurant.jpg') 50% 50%/cover no-repeat; }
 
 
 
