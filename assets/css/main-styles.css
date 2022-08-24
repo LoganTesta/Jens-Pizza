@@ -183,7 +183,8 @@ h1 { padding: 0 0 24px 0; font-size: 40px; color: var(--color-1); }
 h2 { padding: 0 0 20px 0; color: var(--color-3); }
 h3 { padding: 0 0 16px 0; color: var(--color-2); }
 
-a, a:link, a:hover { text-decoration: none; }
+a, a:link, a:hover { text-decoration: underline; transition: 0.3s; }
+a:hover { color: var(--color-2); transition: 0.3s; }
 input, textarea { width: 100%; margin-top: 8px; border: 2px solid var(--color-1); padding: 10px 5px; border-radius: 5px; }
 label { font-weight: bold; }
 
@@ -198,11 +199,12 @@ header { padding: 15px; }
 
 .nav { padding: 15px; }
 .nav ul li { display: block; padding-top: 25px; text-align: center; }
-.nav ul li a { color: var(--color-2); font-weight: bold; transition: 0.3s; }
+.nav ul li a { color: var(--color-2); font-weight: bold; transition: 0.3s; text-decoration: none; }
 .nav ul li a:hover { color: var(--color-1); transition: 0.3s; }
 
 
 .footer { padding: 50px 15px; font-size: 18px; background-color: var(--color-1); color: #ffffff; }
+.footer a { text-decoration: none; }
 .footer__copyright { width: 50%; margin-left: auto; margin-right: auto; text-align: center; font-size: inherit; }
 .footer__year { font-size: inherit; }
 .footer__subscribe-container { padding-top: 40px; }
