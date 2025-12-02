@@ -11,7 +11,7 @@
     "author": "logan",
     "contributors": [],
     "dependencies": {
-        "nodemailer": "^6.6.0",
+        "nodemailer": "^7.0.11",
         "querystring": "^0.2.1"
     }
 }
