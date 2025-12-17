@@ -104,9 +104,11 @@ h2 { font-size: 20px; }
 h3 { font-size: 18px; }
 h4 { font-size: 18px; }
 ul { list-style-type: none; }
-p { padding-bottom: 16px; line-height: 22.4px; }
+p,
+address { padding-bottom: 16px; line-height: 22.4px; }
 a { text-decoration: none; }
 img { max-width: 100%; font-size: 0px; } /*Don't allow images to go offscreen horizontally */
+address { font-style: normal; }
 a:link, a:visited { color: #000000; }
 a:hover { color: #0000cc; }
 input, textarea, select { outline: 0; transition: 0.2s; }
@@ -139,7 +141,7 @@ input:focus, textarea:focus, select:focus { box-shadow: 0px 0px 3px 3px rgba(0, 
 .justify-content > div { display: flex; flex-wrap: wrap; justify-content: center; }
 
 /* General Resuable Classes */
-.sr-only { display: block; width: 0; height: 0; opacity: 0; }
+.hidden-sr-only { display: block; clip-path: polygon(0 0, 0 0, 0 0, 0 0); overflow: hidden; width: 1px; height: 1px; padding: 0; margin: 0; border: 0; }
 .width-100-percent { width: 100%; }
 .clear-both { clear: both; }
 
